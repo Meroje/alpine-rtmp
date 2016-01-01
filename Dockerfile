@@ -8,7 +8,7 @@ ENV HEADERS_MORE_VERSION 0.29
 ENV LUA_VERSION 0.9.20
 ENV NDK_VERSION 0.2.19
 
-RUN apk --update add ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev luajit-dev wget build-base && \
+RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev luajit-dev wget build-base && \
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
     cd /tmp/src && \
