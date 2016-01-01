@@ -51,15 +51,21 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
         --add-module=/tmp/src/headers-more-nginx-module-${HEADERS_MORE_VERSION} && \
     make && \
     make install && \
+    rm -rf /var/www/html && mv /etc/nginx/html /var/www && \
+    mv /tmp/src/nginx-rtmp-module-${RTMP_VERSION}/stat.xsl /var/www/html && \
     apk del build-base && \
     rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
+
+ADD ./nginx.conf /etc/nginx/conf/nginx.conf
+ADD ./sites-enabled /etc/nginx/sites-enabled/
+ADD ./streams-enabled /etc/nginx/streams-enabled/
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
-VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/streams-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
 WORKDIR /etc/nginx
 
