@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.8
 
 MAINTAINER Jérôme Foray <moi@foray-jero.me>
 
