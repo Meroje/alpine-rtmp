@@ -20,7 +20,7 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     wget -O- https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz | tar xvzf - && \
     wget -O- http://nginx.org/download/${NGINX_VERSION}.tar.gz | tar xvzf - && \
     cd /tmp/src/luajit2-${LUAJIT_VERSION} && \
-    make && make install \
+    make && make install && \
     cd /tmp/src/${NGINX_VERSION} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
