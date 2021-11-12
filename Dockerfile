@@ -9,6 +9,8 @@ ENV HEADERS_MORE_VERSION 0.33
 ENV LUA_VERSION 0.10.20
 ENV NDK_VERSION 0.3.1
 
+env LUAJIT_LIB /usr/local/lib
+env LUAJIT_INC /usr/local/include/luajit-2.1
 RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev wget build-base && \
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
