@@ -24,7 +24,7 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     cd /tmp/src/${NGINX_VERSION} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
-        --with-ld-opt="-Wl,-rpath,/path/to/luajit/lib" \
+        --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
         --prefix=/etc/nginx \
         --sbin-path=/usr/local/sbin/nginx \
         --pid-path=/run/nginx.pid \
