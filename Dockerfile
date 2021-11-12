@@ -9,8 +9,6 @@ ENV HEADERS_MORE_VERSION 0.33
 ENV LUA_VERSION 0.10.20
 ENV NDK_VERSION 0.3.1
 
-ENV LUAJIT_LIB /tmp/src/luajit2-${LUAJIT_VERSION}/lib
-ENV LUAJIT_INC /tmp/src/luajit2-${LUAJIT_VERSION}/include/luajit-2.0
 RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev wget build-base && \
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
@@ -21,6 +19,8 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     wget -O- https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz | tar xvzf - && \
     wget -O- http://nginx.org/download/${NGINX_VERSION}.tar.gz | tar xvzf - && \
+    cd /tmp/src/luajit2-${LUAJIT_VERSION} && \
+    make && make install \
     cd /tmp/src/${NGINX_VERSION} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
