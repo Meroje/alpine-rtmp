@@ -1,25 +1,32 @@
-FROM alpine:3.8
+FROM alpine:3.14
 
 MAINTAINER Jérôme Foray <moi@foray-jero.me>
 
-ENV NGINX_VERSION nginx-1.9.9
-ENV RTMP_VERSION 1.1.7
-ENV HEADERS_MORE_VERSION 0.29
-ENV LUA_VERSION 0.9.20
-ENV NDK_VERSION 0.2.19
+ENV LUAJIT_VERSION 2.1-20210510
+ENV NGINX_VERSION nginx-1.19.3
+ENV RTMP_VERSION 1.2.2
+ENV HEADERS_MORE_VERSION 0.33
+ENV LUA_VERSION 0.10.20
+ENV NDK_VERSION 0.3.1
 
-RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev luajit-dev wget build-base && \
+env LUAJIT_LIB /usr/local/lib
+env LUAJIT_INC /usr/local/include/luajit-2.1
+RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev wget build-base && \
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
     cd /tmp/src && \
+    wget -O- https://github.com/openresty/luajit2/archive/refs/tags/v${LUAJIT_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/simpl/ngx_devel_kit/archive/v${NDK_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz | tar xvzf - && \
     wget -O- http://nginx.org/download/${NGINX_VERSION}.tar.gz | tar xvzf - && \
+    cd /tmp/src/luajit2-${LUAJIT_VERSION} && \
+    make && make install && \
     cd /tmp/src/${NGINX_VERSION} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
+        --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
         --prefix=/etc/nginx \
         --sbin-path=/usr/local/sbin/nginx \
         --pid-path=/run/nginx.pid \
