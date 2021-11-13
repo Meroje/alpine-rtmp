@@ -2,6 +2,7 @@ FROM alpine:3.14
 
 MAINTAINER Jérôme Foray <moi@foray-jero.me>
 
+# renovate: datasource=github-tags depName=openresty/luajit2 versioning=semver-coerced
 ENV LUAJIT_VERSION 2.1-20210510
 ENV NGINX_VERSION nginx-1.19.3
 ENV RTMP_VERSION 1.2.2
@@ -9,8 +10,8 @@ ENV HEADERS_MORE_VERSION 0.33
 ENV LUA_VERSION 0.10.20
 ENV NDK_VERSION 0.3.1
 
-env LUAJIT_LIB /usr/local/lib
-env LUAJIT_INC /usr/local/include/luajit-2.1
+Env LUAJIT_LIB /usr/local/lib
+Env LUAJIT_INC /usr/local/include/luajit-2.1
 RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-dev zlib-dev wget build-base && \
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
