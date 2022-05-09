@@ -27,6 +27,12 @@
       "matchDepTypes": ["action"],
       "extractVersion": "^(?<version>v\\d+\\.\\d+\\.\\d+)$",
       "versioning": "regex:^v(?<major>\\d+)(\\.(?<minor>\\d+)\\.(?<patch>\\d+))?$"
+    },
+    {
+      "description": "Group docker actions updates",
+      "groupName": "docker-actions",
+      "matchPackagePrefixes": ["docker/"],
+      "matchDepTypes": ["action"]
     }
   ],
   "regexManagers": [
