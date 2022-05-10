@@ -29,7 +29,7 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     wget -O- http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar xvzf - && \
     cd /tmp/src/luajit2-${LUAJIT_VERSION#v} && \
     make && make install && \
-    cd /tmp/src/${NGINX_VERSION/release/nginx} && \
+    cd /tmp/src/nginx-${NGINX_VERSION} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
         --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
