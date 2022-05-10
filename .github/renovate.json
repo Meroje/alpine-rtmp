@@ -35,7 +35,7 @@
       "matchDepTypes": ["action"]
     },
     {
-      "matchPackagePrefixes": ["luajit2"],
+      "matchPackageNames": ["luajit2"],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)(:?-(?<build>\\d+))?$"
     }
   ]
