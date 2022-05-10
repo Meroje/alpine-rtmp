@@ -33,6 +33,10 @@
       "groupName": "docker-actions",
       "matchPackagePrefixes": ["docker/"],
       "matchDepTypes": ["action"]
+    },
+    {
+      "matchPackagePrefixes": ["luajit2"],
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)(:?-(?<build>\\d+))?$"
     }
   ]
 }
