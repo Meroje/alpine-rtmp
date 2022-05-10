@@ -35,7 +35,7 @@
       "matchDepTypes": ["action"]
     },
     {
-      "matchPackageNames": ["luajit2"],
+      "matchPackageNames": ["openresty/luajit2"],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)(:?-(?<build>\\d+))?$"
     }
   ]
