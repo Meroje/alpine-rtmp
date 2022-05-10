@@ -3,12 +3,17 @@ FROM alpine:3.15@sha256:4edbd2beb5f78b1014028f4fbb99f3237d9561100b6881aabbf5acce
 MAINTAINER Jérôme Foray <moi@foray-jero.me>
 
 # renovate: datasource=github-tags depName=openresty/luajit2 versioning=semver-coerced
-ENV LUAJIT_VERSION=2.1-20210510
+ENV LUAJIT_VERSION=v2.1-20210510
+# renovate: datasource=github-tags depName=nginx/nginx versioning=semver-coerced
 ENV NGINX_VERSION=nginx-1.19.3
-ENV RTMP_VERSION=1.2.2
-ENV HEADERS_MORE_VERSION=0.33
-ENV LUA_VERSION=0.10.20
-ENV NDK_VERSION=0.3.1
+# renovate: datasource=github-tags depName=arut/nginx-rtmp-module versioning=semver-coerced
+ENV RTMP_VERSION=v1.2.2
+# renovate: datasource=github-tags depName=openresty/headers-more-nginx-module versioning=semver-coerced
+ENV HEADERS_MORE_VERSION=v0.33
+# renovate: datasource=github-tags depName=openresty/lua-nginx-module versioning=semver-coerced
+ENV LUA_VERSION=v0.10.20
+# renovate: datasource=github-tags depName=simpl/ngx_devel_kit versioning=semver-coerced
+ENV NDK_VERSION=v0.3.1
 
 Env LUAJIT_LIB /usr/local/lib
 Env LUAJIT_INC /usr/local/include/luajit-2.1
@@ -16,13 +21,13 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     update-ca-certificates && \
     mkdir -p /tmp/src /var/lib/nginx /var/log/nginx && \
     cd /tmp/src && \
-    wget -O- https://github.com/openresty/luajit2/archive/refs/tags/v${LUAJIT_VERSION}.tar.gz | tar xvzf - && \
-    wget -O- https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_VERSION}.tar.gz | tar xvzf - && \
-    wget -O- https://github.com/simpl/ngx_devel_kit/archive/v${NDK_VERSION}.tar.gz | tar xvzf - && \
-    wget -O- https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz | tar xvzf - && \
-    wget -O- https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- https://github.com/openresty/luajit2/archive/refs/tags/${LUAJIT_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- https://github.com/arut/nginx-rtmp-module/archive/${RTMP_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- https://github.com/simpl/ngx_devel_kit/archive/${NDK_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- https://github.com/openresty/headers-more-nginx-module/archive/${HEADERS_MORE_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- https://github.com/openresty/lua-nginx-module/archive/${LUA_VERSION}.tar.gz | tar xvzf - && \
     wget -O- http://nginx.org/download/${NGINX_VERSION}.tar.gz | tar xvzf - && \
-    cd /tmp/src/luajit2-${LUAJIT_VERSION} && \
+    cd /tmp/src/luajit2-${LUAJIT_VERSION#v} && \
     make && make install && \
     cd /tmp/src/${NGINX_VERSION} && \
     ./configure \
@@ -53,14 +58,14 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
         --with-http_sub_module \
         --with-http_secure_link_module \
         --with-http_auth_request_module \
-        --add-module=/tmp/src/nginx-rtmp-module-${RTMP_VERSION} \
-        --add-module=/tmp/src/ngx_devel_kit-${NDK_VERSION} \
-        --add-module=/tmp/src/lua-nginx-module-${LUA_VERSION} \
-        --add-module=/tmp/src/headers-more-nginx-module-${HEADERS_MORE_VERSION} && \
+        --add-module=/tmp/src/nginx-rtmp-module-${RTMP_VERSION#v} \
+        --add-module=/tmp/src/ngx_devel_kit-${NDK_VERSION#v} \
+        --add-module=/tmp/src/lua-nginx-module-${LUA_VERSION#v} \
+        --add-module=/tmp/src/headers-more-nginx-module-${HEADERS_MORE_VERSION#v} && \
     make && \
     make install && \
     rm -rf /var/www/html && mv /etc/nginx/html /var/www && \
-    mv /tmp/src/nginx-rtmp-module-${RTMP_VERSION}/stat.xsl /var/www/html && \
+    mv /tmp/src/nginx-rtmp-module-${RTMP_VERSION#v}/stat.xsl /var/www/html && \
     apk del build-base && \
     rm -rf /tmp/src && \
     rm -rf /var/cache/apk/*
