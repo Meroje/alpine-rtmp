@@ -5,7 +5,7 @@ MAINTAINER Jérôme Foray <moi@foray-jero.me>
 # renovate: datasource=github-tags depName=openresty/luajit2 versioning=semver-coerced
 ENV LUAJIT_VERSION=v2.1-20210510
 # renovate: datasource=github-tags depName=nginx/nginx versioning=semver-coerced
-ENV NGINX_VERSION=nginx-1.19.3
+ENV NGINX_VERSION=release-1.19.3
 # renovate: datasource=github-tags depName=arut/nginx-rtmp-module versioning=semver-coerced
 ENV RTMP_VERSION=v1.2.2
 # renovate: datasource=github-tags depName=openresty/headers-more-nginx-module versioning=semver-coerced
@@ -26,10 +26,10 @@ RUN apk --update add ffmpeg ca-certificates libatomic_ops-dev openssl-dev pcre-d
     wget -O- https://github.com/simpl/ngx_devel_kit/archive/${NDK_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/openresty/headers-more-nginx-module/archive/${HEADERS_MORE_VERSION}.tar.gz | tar xvzf - && \
     wget -O- https://github.com/openresty/lua-nginx-module/archive/${LUA_VERSION}.tar.gz | tar xvzf - && \
-    wget -O- http://nginx.org/download/${NGINX_VERSION}.tar.gz | tar xvzf - && \
+    wget -O- http://nginx.org/download/${NGINX_VERSION/release/nginx}.tar.gz | tar xvzf - && \
     cd /tmp/src/luajit2-${LUAJIT_VERSION#v} && \
     make && make install && \
-    cd /tmp/src/${NGINX_VERSION} && \
+    cd /tmp/src/${NGINX_VERSION/release/nginx} && \
     ./configure \
         --with-cc-opt="-Wno-maybe-uninitialized -Wno-pointer-sign" \
         --with-ld-opt="-Wl,-rpath,/usr/local/lib" \
