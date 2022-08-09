@@ -9,7 +9,7 @@ ENV NGINX_VERSION=1.22.0
 # renovate: datasource=github-tags depName=arut/nginx-rtmp-module versioning=semver-coerced
 ENV RTMP_VERSION=v1.2.2
 # renovate: datasource=github-tags depName=openresty/headers-more-nginx-module versioning=semver-coerced
-ENV HEADERS_MORE_VERSION=v0.33
+ENV HEADERS_MORE_VERSION=v0.34
 # renovate: datasource=github-tags depName=openresty/lua-nginx-module versioning=semver-coerced
 ENV LUA_VERSION=v0.10.21
 # renovate: datasource=github-tags depName=simpl/ngx_devel_kit versioning=semver-coerced
