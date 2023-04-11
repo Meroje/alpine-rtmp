@@ -5,7 +5,7 @@ MAINTAINER Jérôme Foray <moi@foray-jero.me>
 # renovate: datasource=github-tags depName=openresty/luajit2 packageName=openresty/luajit2 versioning=loose
 ENV LUAJIT_VERSION=v2.1-20230119
 # renovate: datasource=docker depName=library/nginx versioning=docker
-ENV NGINX_VERSION=1.23.4
+ENV NGINX_VERSION=1.24.0
 # renovate: datasource=github-tags depName=arut/nginx-rtmp-module versioning=semver-coerced
 ENV RTMP_VERSION=v1.2.2
 # renovate: datasource=github-tags depName=openresty/headers-more-nginx-module versioning=semver-coerced
