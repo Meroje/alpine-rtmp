@@ -13,7 +13,7 @@ ENV HEADERS_MORE_VERSION=v0.35
 # renovate: datasource=github-tags depName=openresty/lua-nginx-module versioning=semver-coerced
 ENV LUA_VERSION=master
 # renovate: datasource=github-tags depName=simpl/ngx_devel_kit versioning=semver-coerced
-ENV NDK_VERSION=v0.3.2
+ENV NDK_VERSION=v0.3.3
 
 Env LUAJIT_LIB /usr/local/lib
 Env LUAJIT_INC /usr/local/include/luajit-2.1
