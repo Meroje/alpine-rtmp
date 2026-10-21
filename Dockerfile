@@ -3,7 +3,7 @@ FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cab
 MAINTAINER Jérôme Foray <moi@foray-jero.me>
 
 # renovate: datasource=github-tags depName=openresty/luajit2 packageName=openresty/luajit2 versioning=loose
-ENV LUAJIT_VERSION=v2.1-20261015
+ENV LUAJIT_VERSION=v2.1-20261021
 # renovate: datasource=docker depName=library/nginx versioning=docker
 ENV NGINX_VERSION=1.31.7
 # renovate: datasource=github-tags depName=arut/nginx-rtmp-module versioning=semver-coerced
